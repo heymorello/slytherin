@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <title>День Слизерина 2026</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Patrick+Hand&display=swap" rel="stylesheet">
   <style>
     body {
       margin: 0;
@@ -18,7 +18,7 @@
     }
 
     h1 {
-      font-size: 42px;
+      font-size: 44px;
       text-align: center;
       margin-bottom: 10px;
       line-height: 1.1;
@@ -45,16 +45,33 @@
       transform: translateY(-2px);
     }
 
-    p {
-      color: #5f7f6f;
-      margin-bottom: 30px;
-      font-size: 16px;
+    /* РИСОВАННЫЙ ТЕКСТ */
+    .hint {
+      position: absolute;
+      right: 10%;
+      top: 55%;
+      font-family: 'Patrick Hand', cursive;
+      font-size: 22px;
+      color: #3f6f5c;
+      transform: rotate(-10deg);
+    }
+
+    .arrow {
+      position: absolute;
+      right: 15%;
+      top: 60%;
+      width: 120px;
+      height: 120px;
+      border-right: 3px solid #3f6f5c;
+      border-bottom: 3px solid #3f6f5c;
+      border-radius: 0 0 100px 0;
+      transform: rotate(20deg);
     }
 
     .scene {
       position: relative;
-      width: 420px;
-      height: 420px;
+      width: 700px;
+      height: 700px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -62,7 +79,7 @@
 
     #pack, #toy {
       position: absolute;
-      width: 360px;
+      width: 600px;
       transition: all 0.5s ease;
     }
 
@@ -83,16 +100,16 @@
 
     @keyframes shake {
       0% { transform: translateX(0); }
-      25% { transform: translateX(-12px); }
-      50% { transform: translateX(12px); }
-      75% { transform: translateX(-12px); }
+      25% { transform: translateX(-15px); }
+      50% { transform: translateX(15px); }
+      75% { transform: translateX(-15px); }
       100% { transform: translateX(0); }
     }
 
     #toy {
       opacity: 0;
       transform: scale(0.5);
-      filter: drop-shadow(0 20px 40px rgba(0,0,0,0.15));
+      filter: drop-shadow(0 30px 60px rgba(0,0,0,0.2));
     }
 
     #toy.show {
@@ -100,6 +117,30 @@
       transform: scale(1);
     }
 
+    /* описание */
+    .info {
+      position: absolute;
+      left: 5%;
+      bottom: 10%;
+      max-width: 260px;
+      font-family: 'Patrick Hand', cursive;
+      color: #2e5e4c;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.5s ease;
+    }
+
+    .info.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .info h2 {
+      margin: 0 0 10px;
+      font-size: 26px;
+    }
+
+    /* пузыри */
     .bubble {
       position: absolute;
       border-radius: 50%;
@@ -111,18 +152,13 @@
 
     @keyframes float {
       0% { transform: translateY(0) scale(1); }
-      50% { transform: translateY(-70px) scale(1.15); }
+      50% { transform: translateY(-80px) scale(1.2); }
       100% { transform: translateY(0) scale(1); }
     }
 
-    .b1 { width: 120px; height: 120px; top: 5%; left: 10%; animation-delay: 0s; }
-    .b2 { width: 70px; height: 70px; bottom: 10%; right: 20%; animation-delay: 2s; }
-    .b3 { width: 140px; height: 140px; top: 30%; right: 5%; animation-delay: 1s; }
-    .b4 { width: 60px; height: 60px; top: 70%; left: 15%; animation-delay: 3s; }
-    .b5 { width: 90px; height: 90px; top: 50%; left: 80%; animation-delay: 4s; }
-    .b6 { width: 50px; height: 50px; bottom: 20%; left: 40%; animation-delay: 5s; }
-    .b7 { width: 130px; height: 130px; top: 15%; left: 60%; animation-delay: 2.5s; }
-    .b8 { width: 55px; height: 55px; bottom: 5%; right: 5%; animation-delay: 1.5s; }
+    .b1 { width: 150px; height: 150px; top: 5%; left: 10%; }
+    .b2 { width: 90px; height: 90px; bottom: 10%; right: 20%; }
+    .b3 { width: 170px; height: 170px; top: 30%; right: 5%; }
 
   </style>
 </head>
@@ -131,31 +167,48 @@
   <div class="bubble b1"></div>
   <div class="bubble b2"></div>
   <div class="bubble b3"></div>
-  <div class="bubble b4"></div>
-  <div class="bubble b5"></div>
-  <div class="bubble b6"></div>
-  <div class="bubble b7"></div>
-  <div class="bubble b8"></div>
 
   <h1>
     Какой <span class="labubu-text">ЛАБУБУ</span><br>
     достанется именно тебе?
   </h1>
-  <p>Открывай коробку 🗳</p>
+
+  <div class="hint">открой коробку</div>
+  <div class="arrow"></div>
 
   <div class="scene">
     <img id="pack" src="pack.png" alt="pack" />
     <img id="toy" src="" alt="toy" />
   </div>
 
+  <div class="info" id="info">
+    <h2 id="toyName"></h2>
+    <p id="toyDesc"></p>
+  </div>
+
   <script>
     const pack = document.getElementById("pack");
     const toy = document.getElementById("toy");
+    const info = document.getElementById("info");
+    const toyName = document.getElementById("toyName");
+    const toyDesc = document.getElementById("toyDesc");
 
     const toys = [
-      "toys/1.png","toys/2.png","toys/3.png","toys/4.png","toys/5.png",
-      "toys/6.png","toys/7.png","toys/8.png","toys/9.png","toys/10.png",
-      "toys/11.png","toys/12.png","toys/13.png","toys/14.png","toys/15.png"
+      {img:"toys/1.png", name:"Bubble Labubu", desc:"Любит мечтать и пускать пузырьки"},
+      {img:"toys/2.png", name:"Sweet Labubu", desc:"Обожает сладкое и веселье"},
+      {img:"toys/3.png", name:"Cool Labubu", desc:"Самый стильный в коллекции"},
+      {img:"toys/4.png", name:"Dreamy Labubu", desc:"Живёт в облаках"},
+      {img:"toys/5.png", name:"Shiny Labubu", desc:"Любит всё блестящее"},
+      {img:"toys/6.png", name:"Lazy Labubu", desc:"Просто отдыхает"},
+      {img:"toys/7.png", name:"Sport Labubu", desc:"Всегда в движении"},
+      {img:"toys/8.png", name:"Magic Labubu", desc:"Немного волшебства"},
+      {img:"toys/9.png", name:"Cute Labubu", desc:"Слишком милый"},
+      {img:"toys/10.png", name:"Rare Labubu", desc:"Редкий гость"},
+      {img:"toys/11.png", name:"Star Labubu", desc:"Сияет ярче всех"},
+      {img:"toys/12.png", name:"Night Labubu", desc:"Любит ночь"},
+      {img:"toys/13.png", name:"Sunny Labubu", desc:"Всегда как солнце"},
+      {img:"toys/14.png", name:"Soft Labubu", desc:"Самый нежный"},
+      {img:"toys/15.png", name:"Legend Labubu", desc:"Легенда коллекции"}
     ];
 
     let opened = false;
@@ -167,13 +220,17 @@
       pack.classList.add("shake");
 
       setTimeout(() => {
-        const randomIndex = Math.floor(Math.random() * toys.length);
-        toy.src = toys[randomIndex];
+        const random = toys[Math.floor(Math.random() * toys.length)];
+        toy.src = random.img;
+
+        toyName.textContent = random.name;
+        toyDesc.textContent = random.desc;
 
         pack.classList.remove("shake");
         pack.classList.add("disabled");
 
         toy.classList.add("show");
+        info.classList.add("show");
       }, 500);
     });
   </script>
