@@ -1,10 +1,184 @@
 <!DOCTYPE html>
-<html>
+<html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <title>Мой сайт</title>
+  <meta charset="UTF-8" />
+  <title>Labubu WOW</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background: linear-gradient(180deg, #ffffff 0%, #f0f4ff 40%, #ffeef7 100%);
+      overflow: hidden;
+    }
+
+    h1 {
+      font-size: 40px;
+      text-align: center;
+      margin-bottom: 10px;
+      line-height: 1.1;
+    }
+
+    .labubu-text {
+      display: inline-block;
+      font-weight: 900;
+      background: linear-gradient(180deg, #ff9de6, #ff5ccf);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      position: relative;
+    }
+
+    .labubu-text::after {
+      content: 'LABUBU';
+      position: absolute;
+      left: 0;
+      top: 0;
+      background: linear-gradient(180deg, #fff, rgba(255,255,255,0));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      opacity: 0.6;
+      transform: translateY(-2px);
+    }
+
+    p {
+      color: #777;
+      margin-bottom: 30px;
+    }
+
+    .scene {
+      position: relative;
+      width: 240px;
+      height: 240px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #pack, #toy {
+      position: absolute;
+      width: 200px;
+      transition: all 0.5s ease;
+    }
+
+    #pack {
+      cursor: pointer;
+      z-index: 2;
+    }
+
+    #pack.disabled {
+      pointer-events: none;
+      opacity: 0;
+      transform: scale(0.7);
+    }
+
+    .shake {
+      animation: shake 0.5s;
+    }
+
+    @keyframes shake {
+      0% { transform: translateX(0); }
+      25% { transform: translateX(-10px); }
+      50% { transform: translateX(10px); }
+      75% { transform: translateX(-10px); }
+      100% { transform: translateX(0); }
+    }
+
+    #toy {
+      opacity: 0;
+      transform: scale(0.5);
+      filter: drop-shadow(0 10px 25px rgba(0,0,0,0.15));
+    }
+
+    #toy.show {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    /* БЛЕСТЯЩИЕ ПУЗЫРЬКИ */
+    .bubble {
+      position: absolute;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.9), rgba(173,216,230,0.4), rgba(255,182,193,0.3));
+      backdrop-filter: blur(4px);
+      box-shadow: inset 0 0 10px rgba(255,255,255,0.8), 0 0 20px rgba(255,255,255,0.4);
+      animation: float 10s infinite ease-in-out;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-60px) scale(1.1); }
+      100% { transform: translateY(0) scale(1); }
+    }
+
+    /* много пузырей */
+    .b1 { width: 80px; height: 80px; top: 5%; left: 10%; animation-delay: 0s; }
+    .b2 { width: 50px; height: 50px; bottom: 10%; right: 20%; animation-delay: 2s; }
+    .b3 { width: 100px; height: 100px; top: 30%; right: 5%; animation-delay: 1s; }
+    .b4 { width: 40px; height: 40px; top: 70%; left: 15%; animation-delay: 3s; }
+    .b5 { width: 60px; height: 60px; top: 50%; left: 80%; animation-delay: 4s; }
+    .b6 { width: 30px; height: 30px; bottom: 20%; left: 40%; animation-delay: 5s; }
+    .b7 { width: 90px; height: 90px; top: 15%; left: 60%; animation-delay: 2.5s; }
+    .b8 { width: 35px; height: 35px; bottom: 5%; right: 5%; animation-delay: 1.5s; }
+
+  </style>
 </head>
 <body>
-  <h1>Привет, мир!</h1>
+
+  <!-- пузырьки -->
+  <div class="bubble b1"></div>
+  <div class="bubble b2"></div>
+  <div class="bubble b3"></div>
+  <div class="bubble b4"></div>
+  <div class="bubble b5"></div>
+  <div class="bubble b6"></div>
+  <div class="bubble b7"></div>
+  <div class="bubble b8"></div>
+
+  <h1>
+    What if <span class="labubu-text">LABUBU</span><br>
+    launched a collab?
+  </h1>
+  <p>Нажми на пакет ✨</p>
+
+  <div class="scene">
+    <img id="pack" src="pack.png" alt="pack" />
+    <img id="toy" src="" alt="toy" />
+  </div>
+
+  <script>
+    const pack = document.getElementById("pack");
+    const toy = document.getElementById("toy");
+
+    const toys = [
+      "toys/1.png","toys/2.png","toys/3.png","toys/4.png","toys/5.png",
+      "toys/6.png","toys/7.png","toys/8.png","toys/9.png","toys/10.png",
+      "toys/11.png","toys/12.png","toys/13.png","toys/14.png","toys/15.png"
+    ];
+
+    let opened = false;
+
+    pack.addEventListener("click", () => {
+      if (opened) return;
+      opened = true;
+
+      pack.classList.add("shake");
+
+      setTimeout(() => {
+        const randomIndex = Math.floor(Math.random() * toys.length);
+        toy.src = toys[randomIndex];
+
+        pack.classList.remove("shake");
+        pack.classList.add("disabled");
+
+        toy.classList.add("show");
+      }, 500);
+    });
+  </script>
+
 </body>
 </html>
