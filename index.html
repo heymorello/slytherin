@@ -27,7 +27,7 @@
       overflow: hidden;
     }
 
-    /* ЛЕВАЯ ЧАСТЬ */
+    /* ЛЕВО */
     .left {
       width: 55%;
       display: flex;
@@ -37,28 +37,30 @@
       z-index: 2;
     }
 
-    /* ПРАВАЯ ЧАСТЬ */
+    /* ПРАВО */
     .right {
       width: 45%;
       display: flex;
       flex-direction: column;
       justify-content: center;
+      align-items: center; /* центрируем */
+      text-align: center;  /* текст по центру */
       padding: 60px;
       z-index: 2;
     }
 
     h1 {
       font-size: 42px;
-      line-height: 1.1;
+      line-height: 1.2;
       margin-bottom: 20px;
     }
 
     /* ЛАБУБА */
     .labubu-text {
       display: inline-flex;
-      gap: 12px;
+      gap: 20px; /* БОЛЬШЕ расстояние */
       font-family: "Bubbles", cursive;
-      font-size: 64px;
+      font-size: 72px;
     }
 
     .labubu-text span {
@@ -66,15 +68,17 @@
       background: linear-gradient(180deg, #ff9de6, #ff5ccf);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      text-shadow: 0 6px 12px rgba(0,0,0,0.15);
+
+      /* ТЕНЬ ПОД БУКВАМИ */
+      filter: drop-shadow(0 10px 10px rgba(0,0,0,0.2));
     }
 
-    .labubu-text span:nth-child(1) { transform: translateY(-8px) rotate(-6deg); }
-    .labubu-text span:nth-child(2) { transform: translateY(10px) rotate(5deg); }
-    .labubu-text span:nth-child(3) { transform: translateY(-6px) rotate(-4deg); }
-    .labubu-text span:nth-child(4) { transform: translateY(12px) rotate(7deg); }
-    .labubu-text span:nth-child(5) { transform: translateY(-9px) rotate(-5deg); }
-    .labubu-text span:nth-child(6) { transform: translateY(6px) rotate(6deg); }
+    .labubu-text span:nth-child(1) { transform: translateY(-10px) rotate(-6deg); }
+    .labubu-text span:nth-child(2) { transform: translateY(12px) rotate(5deg); }
+    .labubu-text span:nth-child(3) { transform: translateY(-8px) rotate(-4deg); }
+    .labubu-text span:nth-child(4) { transform: translateY(14px) rotate(7deg); }
+    .labubu-text span:nth-child(5) { transform: translateY(-10px) rotate(-5deg); }
+    .labubu-text span:nth-child(6) { transform: translateY(8px) rotate(6deg); }
 
     p {
       color: #777;
@@ -84,8 +88,8 @@
     /* СЦЕНА */
     .scene {
       position: relative;
-      width: 420px;
-      height: 420px;
+      width: 800px;
+      height: 800px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -93,7 +97,7 @@
 
     #pack, #toy {
       position: absolute;
-      width: 360px;
+      width: 720px; /* УВЕЛИЧИЛИ В 2 РАЗА */
       transition: all 0.5s ease;
     }
 
@@ -123,7 +127,7 @@
     #toy {
       opacity: 0;
       transform: scale(0.5);
-      filter: drop-shadow(0 20px 40px rgba(0,0,0,0.15));
+      filter: drop-shadow(0 30px 60px rgba(0,0,0,0.2));
       z-index: 2;
     }
 
@@ -132,7 +136,7 @@
       transform: scale(1);
     }
 
-    /* ПУЗЫРЬКИ — НА ВЕСЬ ЭКРАН */
+    /* ПУЗЫРЬКИ */
     .bubble {
       position: absolute;
       border-radius: 50%;
@@ -190,15 +194,13 @@
   <div class="bubble b9"></div>
   <div class="bubble b10"></div>
 
-  <!-- ЛЕВО -->
   <div class="left">
     <div class="scene">
-      <img id="pack" src="pack.png" alt="pack" />
-      <img id="toy" src="" alt="toy" />
+      <img id="pack" src="pack.png" />
+      <img id="toy" src="" />
     </div>
   </div>
 
-  <!-- ПРАВО -->
   <div class="right">
     <h1>
       Какая <span class="labubu-text">
@@ -206,7 +208,6 @@
       </span><br>
       попадётся тебе?
     </h1>
-
     <p>Нажми на пакет ✨</p>
   </div>
 
