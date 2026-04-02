@@ -3,8 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <title>День Слизерина 2026</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+
   <style>
+    /* Подключение твоего шрифта */
+    @font-face {
+      font-family: "Bubbles";
+      src: url("fonts/bubbles.woff2") format("woff2");
+    }
+
     body {
       margin: 0;
       font-family: 'Inter', sans-serif;
@@ -13,7 +19,15 @@
       align-items: center;
       justify-content: center;
       height: 100vh;
-      background: linear-gradient(180deg, #f3fff6 0%, #d9fbe8 50%, #c8f7dc 100%);
+
+      /* МЯГКИЙ ГРАДИЕНТ */
+      background: linear-gradient(
+        180deg,
+        #f8fffb 0%,
+        #eefaf3 50%,
+        #e6f5ee 100%
+      );
+
       overflow: hidden;
     }
 
@@ -24,26 +38,26 @@
       line-height: 1.1;
     }
 
-   .labubu-text {
+    /* ЛАБУБА */
+    .labubu-text {
+      display: inline-flex;
+      gap: 4px;
+      font-family: "Bubbles", cursive;
+    }
+
+    .labubu-text span {
       display: inline-block;
-      font-weight: 900;
       background: linear-gradient(180deg, #ff9de6, #ff5ccf);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      position: relative;
     }
 
-    .labubu-text::after {
-      content: 'ЛАБУБА';
-      position: absolute;
-      left: 0;
-      top: 0;
-      background: linear-gradient(180deg, #fff, rgba(255,255,255,0));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      opacity: 0.6;
-      transform: translateY(-2px);
-    }
+    .labubu-text span:nth-child(1) { transform: translateY(-5px) rotate(-5deg); }
+    .labubu-text span:nth-child(2) { transform: translateY(6px) rotate(4deg); }
+    .labubu-text span:nth-child(3) { transform: translateY(-3px) rotate(-3deg); }
+    .labubu-text span:nth-child(4) { transform: translateY(8px) rotate(6deg); }
+    .labubu-text span:nth-child(5) { transform: translateY(-6px) rotate(-4deg); }
+    .labubu-text span:nth-child(6) { transform: translateY(4px) rotate(5deg); }
 
     p {
       color: #777;
@@ -99,12 +113,23 @@
       transform: scale(1);
     }
 
+    /* Пузырьки (цвет уже мягкий, реалистичный) */
     .bubble {
       position: absolute;
       border-radius: 50%;
-      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.9), rgba(120,255,200,0.4), rgba(200,255,230,0.3));
+      background: radial-gradient(
+        circle at 30% 30%,
+        rgba(255,255,255,0.95),
+        rgba(210,235,255,0.6),
+        rgba(180,220,255,0.4),
+        rgba(255,210,245,0.35),
+        rgba(255,255,255,0.2)
+      );
       backdrop-filter: blur(4px);
-      box-shadow: inset 0 0 12px rgba(255,255,255,0.9), 0 0 25px rgba(120,255,200,0.4);
+      box-shadow:
+        inset 0 0 14px rgba(255,255,255,0.9),
+        0 0 20px rgba(200,220,255,0.4),
+        0 0 35px rgba(255,200,240,0.25);
       animation: float 10s infinite ease-in-out;
     }
 
@@ -142,10 +167,11 @@
 
   <h1>
     Какая <span class="labubu-text">
-  <span>Л</span><span>А</span><span>Б</span><span>У</span><span>Б</span><span>А</span>
-</span><br>
+      <span>Л</span><span>А</span><span>Б</span><span>У</span><span>Б</span><span>А</span>
+    </span><br>
     попадётся тебе?
   </h1>
+
   <p>Нажми на пакет ✨</p>
 
   <div class="scene">
