@@ -2,8 +2,8 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
-  <title>День Слизерина 2026</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Patrick+Hand&display=swap" rel="stylesheet">
+  <title>Labubu WOW</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
   <style>
     body {
       margin: 0;
@@ -18,7 +18,7 @@
     }
 
     h1 {
-      font-size: 44px;
+      font-size: 42px;
       text-align: center;
       margin-bottom: 10px;
       line-height: 1.1;
@@ -34,7 +34,7 @@
     }
 
     .labubu-text::after {
-      content: attr(data-text);
+      content: 'LABUBU';
       position: absolute;
       left: 0;
       top: 0;
@@ -45,60 +45,16 @@
       transform: translateY(-2px);
     }
 
-    /* подсказка */
-    .hint {
-      position: absolute;
-      right: 8%;
-      top: 60%;
-      font-family: 'Patrick Hand', cursive;
-      font-size: 24px;
-      color: #3f6f5c;
-      transform: rotate(-12deg);
-      transition: opacity 0.3s;
+    p {
+      color: #5f7f6f;
+      margin-bottom: 30px;
+      font-size: 16px;
     }
-
-    .hint.hide { opacity: 0; }
-
-    /* нормальная стрелка */
-    .arrow {
-      position: absolute;
-      right: 12%;
-      top: 62%;
-      width: 120px;
-      height: 120px;
-      transform: rotate(25deg);
-    }
-
-    .arrow::before {
-      content: '';
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      border: 3px solid #3f6f5c;
-      border-top: none;
-      border-left: none;
-      border-radius: 0 0 100px 0;
-    }
-
-    .arrow::after {
-      content: '';
-      position: absolute;
-      right: -6px;
-      bottom: -6px;
-      width: 0;
-      height: 0;
-      border-left: 10px solid transparent;
-      border-right: 10px solid transparent;
-      border-top: 16px solid #3f6f5c;
-      transform: rotate(45deg);
-    }
-
-    .arrow.hide { opacity: 0; }
 
     .scene {
       position: relative;
-      width: 700px;
-      height: 700px;
+      width: 420px;
+      height: 420px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -106,13 +62,19 @@
 
     #pack, #toy {
       position: absolute;
-      width: 600px;
+      width: 360px;
       transition: all 0.5s ease;
+    }
+
+    #pack {
+      cursor: pointer;
+      z-index: 2;
     }
 
     #pack.disabled {
       pointer-events: none;
       opacity: 0;
+      transform: scale(0.7);
     }
 
     .shake {
@@ -121,16 +83,16 @@
 
     @keyframes shake {
       0% { transform: translateX(0); }
-      25% { transform: translateX(-15px); }
-      50% { transform: translateX(15px); }
-      75% { transform: translateX(-15px); }
+      25% { transform: translateX(-12px); }
+      50% { transform: translateX(12px); }
+      75% { transform: translateX(-12px); }
       100% { transform: translateX(0); }
     }
 
     #toy {
       opacity: 0;
       transform: scale(0.5);
-      filter: drop-shadow(0 30px 60px rgba(0,0,0,0.2));
+      filter: drop-shadow(0 20px 40px rgba(0,0,0,0.15));
     }
 
     #toy.show {
@@ -138,54 +100,29 @@
       transform: scale(1);
     }
 
-    /* инфо */
-    .info {
-      position: absolute;
-      left: 5%;
-      bottom: 10%;
-      max-width: 320px;
-      opacity: 0;
-      transform: translateY(20px);
-      transition: all 0.5s ease;
-    }
-
-    .info.show {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .info h2 {
-      font-size: 42px;
-      margin: 0 0 10px;
-    }
-
-    .info p {
-      font-size: 20px;
-      color: #2e5e4c;
-    }
-
-    /* пузырьки как раньше (много, мелкие) */
     .bubble {
       position: absolute;
       border-radius: 50%;
-      background: radial-gradient(circle, rgba(255,255,255,0.8), rgba(200,255,230,0.3));
-      animation: float 8s infinite ease-in-out;
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.9), rgba(120,255,200,0.4), rgba(200,255,230,0.3));
+      backdrop-filter: blur(4px);
+      box-shadow: inset 0 0 12px rgba(255,255,255,0.9), 0 0 25px rgba(120,255,200,0.4);
+      animation: float 10s infinite ease-in-out;
     }
 
     @keyframes float {
-      0% { transform: translateY(0); }
-      50% { transform: translateY(-40px); }
-      100% { transform: translateY(0); }
+      0% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-70px) scale(1.15); }
+      100% { transform: translateY(0) scale(1); }
     }
 
-    .b1 { width: 60px; height: 60px; top: 10%; left: 20%; }
-    .b2 { width: 40px; height: 40px; bottom: 15%; right: 25%; }
-    .b3 { width: 80px; height: 80px; top: 30%; right: 10%; }
-    .b4 { width: 30px; height: 30px; top: 70%; left: 15%; }
-    .b5 { width: 50px; height: 50px; top: 50%; left: 80%; }
-    .b6 { width: 25px; height: 25px; bottom: 20%; left: 40%; }
-    .b7 { width: 70px; height: 70px; top: 15%; left: 60%; }
-    .b8 { width: 35px; height: 35px; bottom: 5%; right: 5%; }
+    .b1 { width: 120px; height: 120px; top: 5%; left: 10%; animation-delay: 0s; }
+    .b2 { width: 70px; height: 70px; bottom: 10%; right: 20%; animation-delay: 2s; }
+    .b3 { width: 140px; height: 140px; top: 30%; right: 5%; animation-delay: 1s; }
+    .b4 { width: 60px; height: 60px; top: 70%; left: 15%; animation-delay: 3s; }
+    .b5 { width: 90px; height: 90px; top: 50%; left: 80%; animation-delay: 4s; }
+    .b6 { width: 50px; height: 50px; bottom: 20%; left: 40%; animation-delay: 5s; }
+    .b7 { width: 130px; height: 130px; top: 15%; left: 60%; animation-delay: 2.5s; }
+    .b8 { width: 55px; height: 55px; bottom: 5%; right: 5%; animation-delay: 1.5s; }
 
   </style>
 </head>
@@ -201,48 +138,24 @@
   <div class="bubble b8"></div>
 
   <h1>
-    Какой <span class="labubu-text" data-text="ЛАБУБУ">ЛАБУБУ</span><br>
-    достанется именно тебе?
+    What if <span class="labubu-text">LABUBU</span><br>
+    launched a collab?
   </h1>
-
-  <div class="hint" id="hint">открой коробку</div>
-  <div class="arrow" id="arrow"></div>
+  <p>Нажми на пакет ✨</p>
 
   <div class="scene">
     <img id="pack" src="pack.png" alt="pack" />
     <img id="toy" src="" alt="toy" />
   </div>
 
-  <div class="info" id="info">
-    <h2 class="labubu-text" id="toyName" data-text=""></h2>
-    <p id="toyDesc"></p>
-  </div>
-
   <script>
     const pack = document.getElementById("pack");
     const toy = document.getElementById("toy");
-    const info = document.getElementById("info");
-    const toyName = document.getElementById("toyName");
-    const toyDesc = document.getElementById("toyDesc");
-    const hint = document.getElementById("hint");
-    const arrow = document.getElementById("arrow");
 
     const toys = [
-      {img:"toys/1.png", name:"сигма слизерин бой", desc:"Сигма-бой — это интернет-мем и молодежный сленг, обозначающий уверенного, харизматичного парня, который ведет себя как «волк-одиночка». Он независим, следует собственным правилам, не стремится к социальному одобрению или лидерству, в отличие от «альфа-самца»."},
-      {img:"toys/2.png", name:"сигма слизерин бой", desc:"Сигма-бой — это интернет-мем и молодежный сленг, обозначающий уверенного, харизматичного парня, который ведет себя как «волк-одиночка». Он независим, следует собственным правилам, не стремится к социальному одобрению или лидерству, в отличие от «альфа-самца»."},
-      {img:"toys/3.png", name:"сигма слизерин бой", desc:"Сигма-бой — это интернет-мем и молодежный сленг, обозначающий уверенного, харизматичного парня, который ведет себя как «волк-одиночка». Он независим, следует собственным правилам, не стремится к социальному одобрению или лидерству, в отличие от «альфа-самца»."},
-      {img:"toys/4.png", name:"сигма слизерин бой", desc:"Сигма-бой — это интернет-мем и молодежный сленг, обозначающий уверенного, харизматичного парня, который ведет себя как «волк-одиночка». Он независим, следует собственным правилам, не стремится к социальному одобрению или лидерству, в отличие от «альфа-самца»."},
-      {img:"toys/5.png", name:"сигма слизерин бой", desc:"Сигма-бой — это интернет-мем и молодежный сленг, обозначающий уверенного, харизматичного парня, который ведет себя как «волк-одиночка». Он независим, следует собственным правилам, не стремится к социальному одобрению или лидерству, в отличие от «альфа-самца»."},
-      {img:"toys/6.png", name:"сигма слизерин бой", desc:"Сигма-бой — это интернет-мем и молодежный сленг, обозначающий уверенного, харизматичного парня, который ведет себя как «волк-одиночка». Он независим, следует собственным правилам, не стремится к социальному одобрению или лидерству, в отличие от «альфа-самца»."},
-      {img:"toys/7.png", name:"сигма слизерин бой", desc:"Сигма-бой — это интернет-мем и молодежный сленг, обозначающий уверенного, харизматичного парня, который ведет себя как «волк-одиночка». Он независим, следует собственным правилам, не стремится к социальному одобрению или лидерству, в отличие от «альфа-самца»."},
-      {img:"toys/8.png", name:"сигма слизерин бой", desc:"Сигма-бой — это интернет-мем и молодежный сленг, обозначающий уверенного, харизматичного парня, который ведет себя как «волк-одиночка». Он независим, следует собственным правилам, не стремится к социальному одобрению или лидерству, в отличие от «альфа-самца»."},
-      {img:"toys/9.png", name:"сигма слизерин бой", desc:"Сигма-бой — это интернет-мем и молодежный сленг, обозначающий уверенного, харизматичного парня, который ведет себя как «волк-одиночка». Он независим, следует собственным правилам, не стремится к социальному одобрению или лидерству, в отличие от «альфа-самца»."},
-      {img:"toys/10.png", name:"сигма слизерин бой", desc:"Сигма-бой — это интернет-мем и молодежный сленг, обозначающий уверенного, харизматичного парня, который ведет себя как «волк-одиночка». Он независим, следует собственным правилам, не стремится к социальному одобрению или лидерству, в отличие от «альфа-самца»."},
-      {img:"toys/11.png", name:"сигма слизерин бой", desc:"Сигма-бой — это интернет-мем и молодежный сленг, обозначающий уверенного, харизматичного парня, который ведет себя как «волк-одиночка». Он независим, следует собственным правилам, не стремится к социальному одобрению или лидерству, в отличие от «альфа-самца»."},
-      {img:"toys/12.png", name:"сигма слизерин бой", desc:"Сигма-бой — это интернет-мем и молодежный сленг, обозначающий уверенного, харизматичного парня, который ведет себя как «волк-одиночка». Он независим, следует собственным правилам, не стремится к социальному одобрению или лидерству, в отличие от «альфа-самца»."},
-      {img:"toys/13.png", name:"сигма слизерин бой", desc:"Сигма-бой — это интернет-мем и молодежный сленг, обозначающий уверенного, харизматичного парня, который ведет себя как «волк-одиночка». Он независим, следует собственным правилам, не стремится к социальному одобрению или лидерству, в отличие от «альфа-самца»."},
-      {img:"toys/14.png", name:"сигма слизерин бой", desc:"Сигма-бой — это интернет-мем и молодежный сленг, обозначающий уверенного, харизматичного парня, который ведет себя как «волк-одиночка». Он независим, следует собственным правилам, не стремится к социальному одобрению или лидерству, в отличие от «альфа-самца»."},
-      {img:"toys/15.png", name:"сигма слизерин бой", desc:"Сигма-бой — это интернет-мем и молодежный сленг, обозначающий уверенного, харизматичного парня, который ведет себя как «волк-одиночка». Он независим, следует собственным правилам, не стремится к социальному одобрению или лидерству, в отличие от «альфа-самца»."}
+      "toys/1.png","toys/2.png","toys/3.png","toys/4.png","toys/5.png",
+      "toys/6.png","toys/7.png","toys/8.png","toys/9.png","toys/10.png",
+      "toys/11.png","toys/12.png","toys/13.png","toys/14.png","toys/15.png"
     ];
 
     let opened = false;
@@ -254,21 +167,13 @@
       pack.classList.add("shake");
 
       setTimeout(() => {
-        const random = toys[Math.floor(Math.random() * toys.length)];
-        toy.src = random.img;
-
-        toyName.textContent = random.name;
-        toyName.setAttribute("data-text", random.name);
-        toyDesc.textContent = random.desc;
+        const randomIndex = Math.floor(Math.random() * toys.length);
+        toy.src = toys[randomIndex];
 
         pack.classList.remove("shake");
         pack.classList.add("disabled");
 
         toy.classList.add("show");
-        info.classList.add("show");
-
-        hint.classList.add("hide");
-        arrow.classList.add("hide");
       }, 500);
     });
   </script>
