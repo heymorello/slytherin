@@ -104,7 +104,6 @@
       position: absolute;
       width: 500px; /* УВЕЛИЧИЛИ В 2 РАЗА */
       transition: all 0.5s ease;
-  background: red;
     }
     
     #toy {
@@ -250,6 +249,7 @@
   <img src="arrow.png" class="arrow-img" />
 
   <script>
+    document.addEventListener("DOMContentLoaded", () => {
     const pack = document.getElementById("pack");
     const toy = document.getElementById("toy");
 
@@ -359,36 +359,36 @@ const newDesc = document.getElementById("newDesc");
 
     let opened = false;
 
-pack.addEventListener("click", () => {
-  if (opened) return;
-  opened = true;
+  pack.addEventListener("click", () => {
+    console.log("CLICK WORKS");
 
-  pack.classList.add("shake");
+    if (opened) return;
+    opened = true;
 
-  setTimeout(() => {
-    const random = toys[Math.floor(Math.random() * toys.length)];
+    pack.classList.add("shake");
 
-    // Картинка
-    toy.src = random.img;
+    setTimeout(() => {
+      const random = toys[Math.floor(Math.random() * toys.length)];
 
-    // Текст
-    defaultText.classList.add("hidden");
-    labubuInfo.classList.remove("hidden");
+      toy.src = random.img;
 
-    // Заголовок ЛАБУБА по буквам
-    newTitle.innerHTML = random.title
-      .split("")
-      .map(letter => `<span>${letter}</span>`)
-      .join("");
+      defaultText.classList.add("hidden");
+      labubuInfo.classList.remove("hidden");
 
-    newDesc.textContent = random.desc;
+      newTitle.innerHTML = random.title
+        .split("")
+        .map(letter => `<span>${letter}</span>`)
+        .join("");
 
-    pack.classList.remove("shake");
-    pack.classList.add("disabled");
+      newDesc.textContent = random.desc;
 
-    toy.classList.add("show");
-  }, 500);
-});
+      pack.classList.remove("shake");
+      pack.classList.add("disabled");
+
+      toy.classList.add("show");
+    }, 500);
+  });
+}
   </script>
 
 </body>
