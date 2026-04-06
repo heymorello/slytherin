@@ -251,6 +251,11 @@
     const pack = document.getElementById("pack");
     const toy = document.getElementById("toy");
 
+    const defaultText = document.getElementById("defaultText");
+const labubuInfo = document.getElementById("labubuInfo");
+const newTitle = document.getElementById("newTitle");
+const newDesc = document.getElementById("newDesc");
+
     const toys = [
   {
     img: "toys/1.png",
@@ -352,43 +357,36 @@
 
     let opened = false;
 
-    pack.addEventListener("click", () => {
-      if (opened) return;
-      opened = true;
+pack.addEventListener("click", () => {
+  if (opened) return;
+  opened = true;
 
-      pack.classList.add("shake");
+  pack.classList.add("shake");
 
-      const defaultText = document.getElementById("defaultText");
-const labubuInfo = document.getElementById("labubuInfo");
-const newTitle = document.getElementById("newTitle");
-const newDesc = document.getElementById("newDesc");
-      
-      setTimeout(() => {const random = toys[Math.floor(Math.random() * toys.length)];
+  setTimeout(() => {
+    const random = toys[Math.floor(Math.random() * toys.length)];
 
-toy.src = random.img;
+    // Картинка
+    toy.src = random.img;
 
-/* скрываем старый текст */
-defaultText.classList.add("hidden");
+    // Текст
+    defaultText.classList.add("hidden");
+    labubuInfo.classList.remove("hidden");
 
-/* показываем новый */
-labubuInfo.classList.remove("hidden");
+    // Заголовок ЛАБУБА по буквам
+    newTitle.innerHTML = random.title
+      .split("")
+      .map(letter => `<span>${letter}</span>`)
+      .join("");
 
-/* делаем заголовок как ЛАБУБА (по буквам) */
-newTitle.innerHTML = random.title
-  .split("")
-  .map(letter => `<span>${letter}</span>`)
-  .join("");
+    newDesc.textContent = random.desc;
 
-newDesc.textContent = random.desc;
-        const randomIndex = Math.floor(Math.random() * toys.length);
-        toy.src = toys[randomIndex];
+    pack.classList.remove("shake");
+    pack.classList.add("disabled");
 
-        pack.classList.remove("shake");
-        pack.classList.add("disabled");
-
-        toy.classList.add("show");
-      }, 500);
-    });
+    toy.classList.add("show");
+  }, 500);
+});
   </script>
 
 </body>
