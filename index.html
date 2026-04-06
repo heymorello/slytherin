@@ -246,7 +246,7 @@
   <p id="newDesc"></p>
 </div>
 
-  <img src="arrow.png" class="arrow-img" />
+  <img src="arrow.png" class="arrow-img" id="arrow" />
 
   <script>
 document.addEventListener("DOMContentLoaded", () => {
@@ -258,6 +258,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const labubuInfo = document.getElementById("labubuInfo");
   const newTitle = document.getElementById("newTitle");
   const newDesc = document.getElementById("newDesc");
+  const arrow = document.getElementById("arrow");
 
   const toys = [
     {
@@ -300,6 +301,46 @@ document.addEventListener("DOMContentLoaded", () => {
       title: "БОЛЕЛЬЩИК",
       desc: `Обожает квиддич, шумный и энергичный. Всегда поддерживает своих.`
     }
+    {
+      img: "toys/9.png",
+      title: "ЧЕМПИОН",
+      desc: `Обожает квиддич, шумный и энергичный. Всегда поддерживает своих.`
+    }
+  {
+      img: "toys/10.png",
+      title: "ДИДЖЕЙ",
+      desc: `Обожает квиддич, шумный и энергичный. Всегда поддерживает своих.`
+    }
+  {
+      img: "toys/11.png",
+      title: "СТАРОСТА",
+      desc: `Обожает квиддич, шумный и энергичный. Всегда поддерживает своих.`
+    }
+  {
+      img: "toys/12.png",
+      title: "БАУНТИ",
+      desc: `Обожает квиддич, шумный и энергичный. Всегда поддерживает своих.`
+    }
+  {
+      img: "toys/13.png",
+      title: "ДЕКАН",
+      desc: `Обожает квиддич, шумный и энергичный. Всегда поддерживает своих.`
+    }
+  {
+      img: "toys/14.png",
+      title: "ВЫРАЩИВАТЕЛЬ",
+      desc: `Обожает квиддич, шумный и энергичный. Всегда поддерживает своих.`
+    }
+  {
+      img: "toys/15.png",
+      title: "ПУТЕШЕСТВЕННИЦА",
+      desc: `Обожает квиддич, шумный и энергичный. Всегда поддерживает своих.`
+    }
+  {
+      img: "toys/16.png",
+      title: "ЗЕФИРНЫЙ",
+      desc: `Обожает квиддич, шумный и энергичный. Всегда поддерживает своих.`
+    }
   ];
 
   let opened = false;
@@ -327,6 +368,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       newDesc.textContent = random.desc;
 
+      arrow.classList.add("hidden");
       pack.classList.remove("shake");
       pack.classList.add("disabled");
 
