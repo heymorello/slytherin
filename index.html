@@ -348,8 +348,6 @@
   </div>
 
   <img src="arrow.png" class="arrow-music" />
-
- <audio id="audio" src="music/music.mp3"></audio>
       <div class="music-text">врубить музыку на все подземелья</div>
 
   <!-- текст песни -->
@@ -416,7 +414,7 @@ SlyFM каждый год собирает народ —<br>
       </p>
     </div>
   </div>
-
+<audio id="audio" src="music/music.mp3" preload="auto"></audio>
 </div>
   </div>
 
@@ -440,7 +438,7 @@ const lyrics = document.getElementById("lyrics");
   /* ▶ PLAY */
 playBtn.addEventListener("click", () => {
   if (audio.paused) {
-    audio.play();
+    audio.play().catch(() => {});
     playBtn.textContent = "⏸";
   } else {
     audio.pause();
