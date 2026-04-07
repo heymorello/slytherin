@@ -134,6 +134,72 @@
       cursor: pointer;
     }
 
+    .music-block {
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.controls {
+  display: flex;
+  gap: 20px;
+}
+
+.icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+  cursor: pointer;
+
+  box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+  transition: 0.2s;
+}
+
+.icon:hover {
+  transform: scale(1.1);
+}
+
+/* стрелка */
+.arrow-music {
+  width: 120px;
+  transform: scaleX(-1) rotate(-20deg); /* ОТЗЕРКАЛИЛИ */
+}
+
+/* текст */
+.music-text {
+  font-size: 18px;
+  color: #1C1C1C;
+}
+
+/* ЛИРИКА */
+.lyrics {
+  margin-top: 20px;
+  width: 100%;
+  max-width: 400px;
+}
+
+.lyrics-inner {
+  background: rgba(255,255,255,0.8);
+  padding: 20px;
+  border-radius: 20px;
+  backdrop-filter: blur(10px);
+
+  max-height: 0;
+  overflow: hidden;
+  transition: 0.4s ease;
+}
+
+.lyrics.show .lyrics-inner {
+  max-height: 300px;
+}
+
     #pack.disabled {
       pointer-events: none;
       opacity: 0;
@@ -236,6 +302,31 @@
   <div class="right hidden" id="labubuInfo">
     <h1 id="newTitle" class="labubu-text"></h1>
     <p id="newDesc"></p>
+    <div class="music-block">
+  
+  <div class="controls">
+    <div class="icon play" id="playBtn">▶</div>
+    <div class="icon book" id="bookBtn">📖</div>
+  </div>
+
+  <img src="arrow.png" class="arrow-music" />
+
+  <div class="music-text">врубить музыку на все подземелья</div>
+
+  <!-- текст песни -->
+  <div class="lyrics hidden" id="lyrics">
+    <div class="lyrics-inner">
+      <p>
+        Здесь будет текст песни...<br>
+        Можно вставить куплеты,<br>
+        переносы строк и т.д.
+      </p>
+    </div>
+  </div>
+
+  <audio id="audio" src="music.mp3"></audio>
+
+</div>
   </div>
 
   <script>
@@ -249,6 +340,27 @@ document.addEventListener("DOMContentLoaded", () => {
   const labubuInfo = document.getElementById("labubuInfo");
   const newTitle = document.getElementById("newTitle");
   const newDesc = document.getElementById("newDesc");
+
+  const playBtn = document.getElementById("playBtn");
+const bookBtn = document.getElementById("bookBtn");
+const audio = document.getElementById("audio");
+const lyrics = document.getElementById("lyrics");
+
+  /* ▶ PLAY */
+playBtn.addEventListener("click", () => {
+  if (audio.paused) {
+    audio.play();
+    playBtn.textContent = "⏸";
+  } else {
+    audio.pause();
+    playBtn.textContent = "▶";
+  }
+});
+
+/* 📖 ЛИРИКА */
+bookBtn.addEventListener("click", () => {
+  lyrics.classList.toggle("show");
+});
 
   const toys = [
     { img: "toys/1.png", title: "ШАХМАТИСТ", desc: "..." },
