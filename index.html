@@ -135,7 +135,7 @@
       position: absolute;
       width: 240px;
       top: 20px;
-      left: 100%;
+      left: 140%;
       transform: translateX(-50%) rotate(-10deg);
       z-index: 20;
       cursor: pointer;
@@ -152,6 +152,10 @@
 .controls {
   display: flex;
   gap: 20px;
+}
+    #labubuInfo p {
+  font-size: 14px; /* было 20px */
+  line-height: 1.5;
 }
 
 .icon {
@@ -181,33 +185,48 @@
 
 /* текст */
 .music-text {
-  font-size: 18px;
+  font-size: 14px;
   color: #1C1C1C;
-}
-
-/* контейнер */
-.lyrics {
-  margin-top: 20px;
-  width: 100%;
-  max-width: 400px;
 }
 
 /* скрытое состояние */
 .lyrics-inner {
-  background: rgba(255,255,255,0.8);
-  padding: 0 20px; /* убрали вертикальный паддинг пока скрыто */
+  background: rgba(255,255,255,0.85);
+  padding: 20px;
   border-radius: 20px;
   backdrop-filter: blur(10px);
 
-  max-height: 0;
-  overflow: hidden;
-  transition: all 0.4s ease;
+  height: 220px; /* фиксированная высота */
+  overflow-y: auto; /* 🔥 включает скролл */
+
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
 }
 
-/* открытое состояние */
-.lyrics.show .lyrics-inner {
-  padding: 20px; /* появляется вместе с раскрытием */
-  max-height: 500px; /* увеличили лимит */
+.lyrics {
+  margin-top: 20px;
+  width: 100%;
+  max-width: 400px;
+
+  opacity: 0;
+  transform: translateY(10px);
+  pointer-events: none;
+
+  transition: 0.3s;
+}
+
+.lyrics.show {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+    .lyrics-inner::-webkit-scrollbar {
+  width: 6px;
+}
+
+.lyrics-inner::-webkit-scrollbar-thumb {
+  background: #ff9de6;
+  border-radius: 10px;
 }
 
     #pack.disabled {
