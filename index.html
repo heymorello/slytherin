@@ -1,292 +1,207 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8" />
-  <title>День Слизерина 2026</title>
+<meta charset="UTF-8" />
+<title>Labubu Unpack</title>
 
-  <style>
-    @font-face {
-      font-family: "Bubbles";
-      src: url("fonts/bubbles.woff2") format("woff2");
-    }
+<style>
+@font-face {
+  font-family: "Bubbles";
+  src: url("fonts/bubbles.woff2") format("woff2");
+}
 
-    body {
-      margin: 0;
-      font-family: 'Inter', sans-serif;
-      height: 100vh;
-      display: flex;
-      position: relative;
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  height: 100vh;
+  display: flex;
+  background: linear-gradient(180deg,#f8fffb,#eefaf3,#e6f5ee);
+  overflow: hidden;
+}
 
-      background: linear-gradient(
-        180deg,
-        #f8fffb 0%,
-        #eefaf3 50%,
-        #e6f5ee 100%
-      );
+.left, .right {
+  width: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
-      overflow: hidden;
-    }
+.right {
+  flex-direction: column;
+  text-align: center;
+  padding: 80px;
+}
 
-    .left {
-      width: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-      z-index: 5;
-    }
+h1 { font-size: 42px; }
 
-    .right {
-      width: 50%;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      padding: 100px;
-      z-index: 2;
-    }
+.labubu-text {
+  display: inline-flex;
+  gap: 6px;
+  font-family: "Bubbles";
+  font-size: 64px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
 
-    h1 {
-      font-size: 42px;
-      line-height: 1.2;
-      margin-bottom: 20px;
-    }
+.labubu-text span {
+  padding: 0 4px;
+  background: linear-gradient(180deg,#ff9de6,#ff5ccf);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
 
-    /* LABUBU текст */
-    .labubu-text {
-      display: inline-flex;
-      gap: 6px; /* уменьшили */
-      font-family: "Bubbles", cursive;
-      font-size: 72px;
-      line-height: 1.1;
-      flex-wrap: wrap; /* чтобы не ломалось */
-      justify-content: center;
-    }
+.scene {
+  position: relative;
+  width: 500px;
+  height: 500px;
+}
 
-    .labubu-text span {
-      display: inline-block;
-      padding: 0 4px; /* уменьшили */
+#pack {
+  position: absolute;
+  width: 400px;
+  cursor: pointer;
+  z-index: 10;
+}
 
-      background: linear-gradient(180deg, #ff9de6, #ff5ccf);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+#toy {
+  position: absolute;
+  width: 450px;
+  opacity: 0;
+  z-index: 5;
+}
 
-      filter: drop-shadow(0 10px 10px rgba(0,0,0,0.2));
-    }
+/* стрелка */
+.arrow-img {
+  position: absolute;
+  width: 140px;
+  top: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  cursor: pointer;
+  z-index: 20;
+}
 
-    .labubu-text span:nth-child(1) { transform: translateY(-10px) rotate(-6deg); }
-    .labubu-text span:nth-child(2) { transform: translateY(12px) rotate(5deg); }
-    .labubu-text span:nth-child(3) { transform: translateY(-8px) rotate(-4deg); }
-    .labubu-text span:nth-child(4) { transform: translateY(14px) rotate(7deg); }
-    .labubu-text span:nth-child(5) { transform: translateY(-10px) rotate(-5deg); }
-    .labubu-text span:nth-child(6) { transform: translateY(8px) rotate(6deg); }
+/* вспышка */
+.flash {
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, white, transparent);
+  opacity: 0;
+  z-index: 15;
+}
 
-    p {
-      color: #1C1C1C;
-      font-size: 20px;
-      line-height: 1.6;
-    }
+.flash.show {
+  animation: flash 0.5s;
+}
 
-    .scene {
-      position: relative;
-      width: 600px;
-      height: 600px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
+@keyframes flash {
+  0% {opacity:0;transform:scale(.5);}
+  50% {opacity:1;transform:scale(1.4);}
+  100% {opacity:0;transform:scale(2);}
+}
 
-    #pack {
-      position: absolute;
-      width: 500px;
-      z-index: 10;
-      cursor: pointer;
-      transition: all 0.5s ease;
-    }
+/* разрыв */
+#pack.opening {
+  animation: tear .6s forwards;
+}
 
-    #toy {
-      position: absolute;
-      width: 600px;
-      opacity: 0;
-      transform: scale(0.5);
-      z-index: 2;
-      transition: all 0.5s ease;
-    }
+@keyframes tear {
+  0% {transform:scale(1);}
+  50% {transform:scale(1.1) rotate(-5deg);}
+  100% {transform:scale(.6) rotate(10deg);opacity:0;}
+}
 
-    #toy.show {
-      opacity: 1;
-      transform: scale(1);
-    }
+/* вылет */
+#toy.pop {
+  animation: pop .7s forwards;
+}
 
-    /* СТРЕЛКА */
-    .arrow-img {
-      position: absolute;
-      width: 180px;
-      top: -40px;
-      left: 50%;
-      transform: translateX(-50%) rotate(-10deg);
-      z-index: 20;
-      cursor: pointer;
-    }
+@keyframes pop {
+  0% {opacity:0;transform:scale(.3) translateY(80px);}
+  60% {opacity:1;transform:scale(1.1) translateY(-30px);}
+  100% {transform:scale(1) translateY(0);}
+}
 
-    #pack.disabled {
-      pointer-events: none;
-      opacity: 0;
-      transform: scale(0.7);
-    }
+.hidden { display:none; }
 
-    .shake {
-      animation: shake 0.5s;
-    }
-
-    @keyframes shake {
-      0% { transform: translateX(0); }
-      25% { transform: translateX(-12px); }
-      50% { transform: translateX(12px); }
-      75% { transform: translateX(-12px); }
-      100% { transform: translateX(0); }
-    }
-
-    .hidden {
-      display: none;
-    }
-
-    /* Пузырьки */
-    .bubble {
-      position: absolute;
-      border-radius: 50%;
-      z-index: 1;
-
-      background: radial-gradient(
-        circle at 30% 30%,
-        rgba(255,255,255,0.95),
-        rgba(210,235,255,0.6),
-        rgba(180,220,255,0.4),
-        rgba(255,210,245,0.35),
-        rgba(255,255,255,0.2)
-      );
-
-      backdrop-filter: blur(4px);
-
-      box-shadow:
-        inset 0 0 14px rgba(255,255,255,0.9),
-        0 0 20px rgba(200,220,255,0.4),
-        0 0 35px rgba(255,200,240,0.25);
-
-      animation: float 10s infinite ease-in-out;
-    }
-
-    @keyframes float {
-      0% { transform: translateY(0) scale(1); }
-      50% { transform: translateY(-70px) scale(1.15); }
-      100% { transform: translateY(0) scale(1); }
-    }
-
-    .b1 { width: 120px; height: 120px; top: 5%; left: 10%; animation-delay: 3s; }
-    .b2 { width: 70px; height: 70px; bottom: 10%; right: 20%; animation-delay: 6s; }
-    .b3 { width: 140px; height: 140px; top: 30%; right: 5%; animation-delay: 4s; }
-    .b4 { width: 60px; height: 60px; top: 70%; left: 15%; animation-delay: 3s; }
-    .b5 { width: 90px; height: 90px; top: 50%; left: 80%; animation-delay: 4s; }
-    .b6 { width: 50px; height: 50px; bottom: 20%; left: 40%; animation-delay: 5s; }
-    .b7 { width: 130px; height: 130px; top: 15%; left: 60%; animation-delay: 2.5s; }
-    .b8 { width: 55px; height: 55px; bottom: 5%; right: 5%; animation-delay: 1.5s; }
-    .b9 { width: 120px; height: 120px; bottom: 20%; right: 90%; animation-delay: 2s; }
-    .b10 { width: 70px; height: 70px; bottom: 60%; right: 75%; animation-delay: 7s; }
-
-  </style>
+</style>
 </head>
+
 <body>
 
-  <!-- пузырьки -->
-  <div class="bubble b1"></div>
-  <div class="bubble b2"></div>
-  <div class="bubble b3"></div>
-  <div class="bubble b4"></div>
-  <div class="bubble b5"></div>
-  <div class="bubble b6"></div>
-  <div class="bubble b7"></div>
-  <div class="bubble b8"></div>
-  <div class="bubble b9"></div>
-  <div class="bubble b10"></div>
-
-  <div class="left">
-    <div class="scene">
-      <img id="pack" src="pack.png" />
-      <img src="arrow.png" class="arrow-img" id="arrow" />
-      <img id="toy" src="" />
-    </div>
+<div class="left">
+  <div class="scene">
+    <img id="pack" src="pack.png">
+    <img id="arrow" class="arrow-img" src="arrow.png">
+    <div id="flash" class="flash"></div>
+    <img id="toy">
   </div>
+</div>
 
-  <div class="right" id="defaultText">
-    <h1>
-      Какая<br>
-      <span class="labubu-text">
-        <span>Л</span><span>А</span><span>Б</span><span>У</span><span>Б</span><span>А</span>
-      </span><br>
-      попадётся тебе?
-    </h1>
-    <p>Слизерин ассоциируется с роскошью...</p>
-  </div>
+<div class="right" id="defaultText">
+  <h1>
+    Какая<br>
+    <span class="labubu-text">
+      <span>Л</span><span>А</span><span>Б</span><span>У</span><span>Б</span><span>А</span>
+    </span><br>
+    попадётся тебе?
+  </h1>
+</div>
 
-  <div class="right hidden" id="labubuInfo">
-    <h1 id="newTitle" class="labubu-text"></h1>
-    <p id="newDesc"></p>
-  </div>
+<div class="right hidden" id="labubuInfo">
+  <h1 id="newTitle" class="labubu-text"></h1>
+  <p id="newDesc"></p>
+</div>
 
-  <script>
-document.addEventListener("DOMContentLoaded", () => {
+<script>
+const pack = document.getElementById("pack");
+const arrow = document.getElementById("arrow");
+const toy = document.getElementById("toy");
+const flash = document.getElementById("flash");
 
-  const pack = document.getElementById("pack");
-  const toy = document.getElementById("toy");
-  const arrow = document.getElementById("arrow");
+const defaultText = document.getElementById("defaultText");
+const info = document.getElementById("labubuInfo");
+const newTitle = document.getElementById("newTitle");
+const newDesc = document.getElementById("newDesc");
 
-  const defaultText = document.getElementById("defaultText");
-  const labubuInfo = document.getElementById("labubuInfo");
-  const newTitle = document.getElementById("newTitle");
-  const newDesc = document.getElementById("newDesc");
+let opened = false;
 
-  const toys = [
-    { img: "toys/1.png", title: "ШАХМАТИСТ", desc: "..." },
-    { img: "toys/2.png", title: "ДУЭЛЯНТ", desc: "..." },
-    { img: "toys/3.png", title: "ЕГИПТОЛОГ", desc: "..." }
-  ];
+const toys = [
+  {img:"toys/1.png", title:"ШАХМАТИСТ", desc:"Умный стратег"},
+  {img:"toys/2.png", title:"ДУЭЛЯНТ", desc:"Маг-воин"},
+  {img:"toys/3.png", title:"РОМАНТИК", desc:"Милый герой"}
+];
 
-  let opened = false;
+function openPack(){
+  if(opened) return;
+  opened = true;
 
-  function openPack() {
-    if (opened) return;
-    opened = true;
+  pack.classList.add("opening");
+  flash.classList.add("show");
 
-    pack.classList.add("shake");
+  const random = toys[Math.floor(Math.random()*toys.length)];
+  toy.src = random.img;
 
-    setTimeout(() => {
-      const random = toys[Math.floor(Math.random() * toys.length)];
+  setTimeout(()=>{
+    toy.classList.add("pop");
+  },150);
 
-      toy.src = random.img;
+  defaultText.classList.add("hidden");
+  info.classList.remove("hidden");
 
-      defaultText.classList.add("hidden");
-      labubuInfo.classList.remove("hidden");
+  newTitle.innerHTML = random.title
+    .split("")
+    .map(l=>`<span>${l}</span>`).join("");
 
-      newTitle.innerHTML = random.title
-        .split("")
-        .map(letter => `<span>${letter}</span>`)
-        .join("");
+  newDesc.textContent = random.desc;
 
-      newDesc.textContent = random.desc;
+  arrow.style.display="none";
+}
 
-      arrow.classList.add("hidden");
-      pack.classList.remove("shake");
-      pack.classList.add("disabled");
+pack.onclick = openPack;
+arrow.onclick = openPack;
 
-      toy.classList.add("show");
-    }, 500);
-  }
-
-  pack.addEventListener("click", openPack);
-  arrow.addEventListener("click", openPack);
-
-});
 </script>
 
 </body>
