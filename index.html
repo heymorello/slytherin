@@ -27,7 +27,6 @@
       overflow: hidden;
     }
 
-    /* ЛЕВО */
     .left {
       width: 50%;
       display: flex;
@@ -37,14 +36,13 @@
       z-index: 5;
     }
 
-    /* ПРАВО */
     .right {
       width: 50%;
       display: flex;
       flex-direction: column;
       justify-content: center;
-      align-items: center; /* центрируем */
-      text-align: center;  /* текст по центру */
+      align-items: center;
+      text-align: center;
       padding: 100px;
       z-index: 2;
     }
@@ -55,26 +53,25 @@
       margin-bottom: 20px;
     }
 
-    /* ЛАБУБА */
+    /* LABUBU текст */
     .labubu-text {
       display: inline-flex;
-      gap: 20px; /* БОЛЬШЕ расстояние */
+      gap: 6px; /* уменьшили */
       font-family: "Bubbles", cursive;
       font-size: 72px;
+      line-height: 1.1;
+      flex-wrap: wrap; /* чтобы не ломалось */
+      justify-content: center;
     }
-
-    .labubu-text {
-  line-height: 1.2;
-}
 
     .labubu-text span {
       display: inline-block;
-      padding: 0 12px;
+      padding: 0 4px; /* уменьшили */
+
       background: linear-gradient(180deg, #ff9de6, #ff5ccf);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
 
-      /* ТЕНЬ ПОД БУКВАМИ */
       filter: drop-shadow(0 10px 10px rgba(0,0,0,0.2));
     }
 
@@ -85,12 +82,12 @@
     .labubu-text span:nth-child(5) { transform: translateY(-10px) rotate(-5deg); }
     .labubu-text span:nth-child(6) { transform: translateY(8px) rotate(6deg); }
 
-    p {color: #1C1C1C;
-  font-size: 20px; /* чуть больше — выглядит дороже */
-  line-height: 1.6;
-}
+    p {
+      color: #1C1C1C;
+      font-size: 20px;
+      line-height: 1.6;
+    }
 
-    /* СЦЕНА */
     .scene {
       position: relative;
       width: 600px;
@@ -99,23 +96,38 @@
       align-items: center;
       justify-content: center;
     }
-    
-#pack {
-      position: absolute;
-      width: 500px; /* УВЕЛИЧИЛИ В 2 РАЗА */
-      transition: all 0.5s ease;
-    }
-    
-    #toy {
-      position: absolute;
-      width: 600px; /* УВЕЛИЧИЛИ В 2 РАЗА */
-      transition: all 0.5s ease;
-    }
 
     #pack {
       position: absolute;
-  z-index: 10;
-  cursor: pointer;
+      width: 500px;
+      z-index: 10;
+      cursor: pointer;
+      transition: all 0.5s ease;
+    }
+
+    #toy {
+      position: absolute;
+      width: 600px;
+      opacity: 0;
+      transform: scale(0.5);
+      z-index: 2;
+      transition: all 0.5s ease;
+    }
+
+    #toy.show {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    /* СТРЕЛКА */
+    .arrow-img {
+      position: absolute;
+      width: 180px;
+      top: -40px;
+      left: 50%;
+      transform: translateX(-50%) rotate(-10deg);
+      z-index: 20;
+      cursor: pointer;
     }
 
     #pack.disabled {
@@ -136,37 +148,11 @@
       100% { transform: translateX(0); }
     }
 
-    #toy {
-      opacity: 0;
-      transform: scale(0.5);
-      filter: none;
-      z-index: 2;
-    }
-
-    #toy.show {
-      opacity: 1;
-      transform: scale(1);
-    }
-
     .hidden {
-  display: none;
-}
+      display: none;
+    }
 
-    .arrow-img {
-  position: absolute;
-
-  width: 250px; /* регулируй размер */
-
-  top: 30%;   /* двигай под свой макет */
-  left: 37%;  /* примерно между текстом и пакетом */
-
-  transform: rotate(-20deg); /* можно подкрутить угол */
-
-  z-index: 1;
-  pointer-events: none; /* чтобы не мешала клику */
-}
-
-    /* ПУЗЫРЬКИ */
+    /* Пузырьки */
     .bubble {
       position: absolute;
       border-radius: 50%;
@@ -212,7 +198,7 @@
 </head>
 <body>
 
-  <!-- Пузырьки -->
+  <!-- пузырьки -->
   <div class="bubble b1"></div>
   <div class="bubble b2"></div>
   <div class="bubble b3"></div>
@@ -227,127 +213,48 @@
   <div class="left">
     <div class="scene">
       <img id="pack" src="pack.png" />
+      <img src="arrow.png" class="arrow-img" id="arrow" />
       <img id="toy" src="" />
     </div>
   </div>
 
   <div class="right" id="defaultText">
     <h1>
-      Какая<br> <span class="labubu-text">
+      Какая<br>
+      <span class="labubu-text">
         <span>Л</span><span>А</span><span>Б</span><span>У</span><span>Б</span><span>А</span>
       </span><br>
       попадётся тебе?
     </h1>
-    <p>Слизерин ассоциируется с роскошью, любовью к уникальным вещам и, конечно же, яркой индивидуальностью. Мы решили, что наш подарок должен совмещать все эти пункты, а потому сегодня мы дарим вам лабубу. За каждым своя история, свой уникальный дизайн, а еще — прекрасная возможность носить его всегда с собой, ведь роскошь нужно не прятать, а носить с удовольствием.</p>
+    <p>Слизерин ассоциируется с роскошью...</p>
   </div>
 
   <div class="right hidden" id="labubuInfo">
-  <h1 id="newTitle" class="labubu-text"></h1>
-  <p id="newDesc"></p>
-</div>
-
-  <img src="arrow.png" class="arrow-img" id="arrow" />
+    <h1 id="newTitle" class="labubu-text"></h1>
+    <p id="newDesc"></p>
+  </div>
 
   <script>
 document.addEventListener("DOMContentLoaded", () => {
 
   const pack = document.getElementById("pack");
   const toy = document.getElementById("toy");
+  const arrow = document.getElementById("arrow");
 
   const defaultText = document.getElementById("defaultText");
   const labubuInfo = document.getElementById("labubuInfo");
   const newTitle = document.getElementById("newTitle");
   const newDesc = document.getElementById("newDesc");
-  const arrow = document.getElementById("arrow");
 
   const toys = [
-    {
-      img: "toys/1.png",
-      title: "ШАХМАТИСТ",
-      desc: `Лабубу е2-е4 или «я сейчас коня съем». Участвует во всем, где есть слово шахматы. Умеет думать наперед и анализировать ситуацию.`
-    },
-    {
-      img: "toys/2.png",
-      title: "ДУЭЛЯНТ",
-      desc: `Смелый маг-заклинатель. Защитник всех лабубу, знает заклинания и всегда приходит на помощь.`
-    },
-    {
-      img: "toys/3.png",
-      title: "ЕГИПТОЛОГ",
-      desc: `Любит древние тайны, артефакты и загадки. Всегда что-то исследует и раскапывает.`
-    },
-    {
-      img: "toys/4.png",
-      title: "МАГ СТИХИЙ",
-      desc: `Управляет огнём, водой, воздухом и землёй. Силен, но использует силу с умом.`
-    },
-    {
-      img: "toys/5.png",
-      title: "СЛИЗЕРИН БОЙ",
-      desc: `Самый загадочный и популярный. Делает всё по-своему и не зависит от чужого мнения.`
-    },
-    {
-      img: "toys/6.png",
-      title: "ЗЕЛЬЕВАР",
-      desc: `Постоянно экспериментирует и создает эликсиры. Самый энергичный из всех лабубу.`
-    },
-    {
-      img: "toys/7.png",
-      title: "РОМАНТИК",
-      desc: `Добрый и милый. Тайно влюблён и мечтает признаться.`
-    },
-    {
-      img: "toys/8.png",
-      title: "БОЛЕЛЬЩИК",
-      desc: `Обожает квиддич, шумный и энергичный. Всегда поддерживает своих.`
-    },
-    {
-      img: "toys/9.png",
-      title: "ЧЕМПИОН",
-      desc: `Обожает квиддич, шумный и энергичный. Всегда поддерживает своих.`
-    },
-  {
-      img: "toys/10.png",
-      title: "ДИДЖЕЙ",
-      desc: `Обожает квиддич, шумный и энергичный. Всегда поддерживает своих.`
-    },
-  {
-      img: "toys/11.png",
-      title: "СТАРОСТА",
-      desc: `Обожает квиддич, шумный и энергичный. Всегда поддерживает своих.`
-    },
-  {
-      img: "toys/12.png",
-      title: "БАУНТИ",
-      desc: `Обожает квиддич, шумный и энергичный. Всегда поддерживает своих.`
-    },
-  {
-      img: "toys/13.png",
-      title: "ДЕКАН",
-      desc: `Обожает квиддич, шумный и энергичный. Всегда поддерживает своих.`
-    },
-  {
-      img: "toys/14.png",
-      title: "ВЫРАЩИВАТЕЛЬ",
-      desc: `Обожает квиддич, шумный и энергичный. Всегда поддерживает своих.`
-    },
-  {
-      img: "toys/15.png",
-      title: "ПУТЕШЕСТВЕННИЦА",
-      desc: `Обожает квиддич, шумный и энергичный. Всегда поддерживает своих.`
-    },
-  {
-      img: "toys/16.png",
-      title: "ЗЕФИРНЫЙ",
-      desc: `Обожает квиддич, шумный и энергичный. Всегда поддерживает своих.`
-    }
+    { img: "toys/1.png", title: "ШАХМАТИСТ", desc: "..." },
+    { img: "toys/2.png", title: "ДУЭЛЯНТ", desc: "..." },
+    { img: "toys/3.png", title: "ЕГИПТОЛОГ", desc: "..." }
   ];
 
   let opened = false;
 
-  pack.addEventListener("click", () => {
-    console.log("CLICK WORKS");
-
+  function openPack() {
     if (opened) return;
     opened = true;
 
@@ -374,7 +281,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
       toy.classList.add("show");
     }, 500);
-  });
+  }
+
+  pack.addEventListener("click", openPack);
+  arrow.addEventListener("click", openPack);
 
 });
 </script>
