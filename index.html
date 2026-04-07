@@ -530,7 +530,7 @@ bookBtn.addEventListener("click", () => {
       .map(letter => `<span>${letter}</span>`)
       .join("");
 
-    newDesc.textContent = random.desc;
+    newDesc.innerHTML = random.desc;
 
     arrow.classList.add("hidden");
     pack.classList.remove("shake");
