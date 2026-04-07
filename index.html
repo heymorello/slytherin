@@ -58,15 +58,17 @@
 
     /* LABUBU текст */
     .labubu-text {
-      display: inline-flex;
-      gap: 14px; /* уменьшили */
-      font-family: "Bubbles", cursive;
-      font-size: 72px;
-      line-height: 1.1;
-      flex-wrap: wrap; /* чтобы не ломалось */
-      justify-content: center;
-      padding: 0 10px; 
-    }
+  display: inline-flex;
+  gap: clamp(10px, 2vw, 24px); /* адаптивный отступ */
+  font-family: "Bubbles", cursive;
+
+  font-size: clamp(40px, 6vw, 80px); /* адаптивный размер */
+
+  line-height: 1.1;
+  justify-content: center;
+
+  white-space: nowrap; /* по умолчанию НЕ переносим */
+}
 
     .labubu-text span {
       display: inline-block;
@@ -217,6 +219,14 @@
     .shake {
       animation: shake 0.5s;
     }
+    
+    @media (max-width: 768px) {
+  .labubu-text {
+    flex-wrap: wrap;      /* теперь можно переносить */
+    white-space: normal;  /* разрешаем перенос */
+    gap: 12px;
+  }
+}
 
     @keyframes shake {
       0% { transform: translateX(0); }
@@ -366,8 +376,8 @@ playBtn.addEventListener("click", () => {
   }
 });
 
-/* 📖 ЛИРИКА */
 bookBtn.addEventListener("click", () => {
+  lyrics.classList.toggle("hidden");
   lyrics.classList.toggle("show");
 });
 
